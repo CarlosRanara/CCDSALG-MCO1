@@ -1,0 +1,375 @@
+# Graham's Scan Project .gitignore
+# Ignore compiled executables and build artifacts
+
+# =============================================================================
+# EXECUTABLES
+# =============================================================================
+
+# Windows executables
+*.exe
+*.dll
+*.pdb
+
+# Linux/Mac executables (no extension)
+graham_slow
+graham_fast
+main1
+main2
+test_generator
+
+# Any executable with common patterns
+*_slow
+*_fast
+*_test
+*_debug
+*_release
+
+# =============================================================================
+# OBJECT FILES AND COMPILED ARTIFACTS
+# =============================================================================
+
+# Object files
+*.o
+*.obj
+*.ko
+*.elf
+
+# Linker output
+*.map
+*.exp
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+*.so
+*.so.*
+*.dylib
+
+# Shared objects (Linux)
+*.so
+
+# =============================================================================
+# COMPILER AND BUILD SYSTEM FILES
+# =============================================================================
+
+# Makefiles (if auto-generated)
+Makefile.bak
+makefile.bak
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+build/
+Build/
+BUILD/
+
+# =============================================================================
+# IDE AND EDITOR FILES (INCLUDING HIDDEN DIRECTORIES)
+# =============================================================================
+
+# Visual Studio
+.vs/
+*.vcxproj.user
+*.vcxproj.filters
+*.vcxproj
+*.sln
+*.suo
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*.sbr
+*.sdf
+*.opensdf
+*.unsuccessfulbuild
+ipch/
+*.idb
+*.pgc
+*.pgd
+*.rsp
+*.tmp
+
+# Visual Studio Code (hidden directory)
+.vscode/
+*.code-workspace
+
+# CLion (hidden directory)
+.idea/
+cmake-build-debug/
+cmake-build-release/
+
+# IntelliJ IDEA (hidden directory)
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse (hidden files)
+.project
+.cproject
+.settings/
+.metadata/
+
+# NetBeans (hidden directory)
+.netbeans/
+nbproject/
+
+# Sublime Text (hidden files)
+*.sublime-project
+*.sublime-workspace
+.sublime-project.cache
+
+# Atom (hidden directory)
+.atom/
+
+# Vim (hidden files)
+.vim/
+.vimrc.local
+.viminfo
+*.swp
+*.swo
+*~
+.netrwhist
+
+# Emacs (hidden files)
+.emacs.d/
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+.org-id-locations
+*_archive
+*_flymake.*
+/eshell/history
+/eshell/lastdir
+/elpa/
+
+# Code::Blocks
+*.cbp
+*.layout
+*.depend
+
+# Dev-C++
+*.dev
+
+# Qt Creator (hidden files)
+.qtcreator/
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
+*.moc
+*.qrc.cpp
+*.ui.h
+
+# Xcode
+*.xcodeproj/
+*.xcworkspace/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+*.xccheckout
+*.moved-aside
+DerivedData/
+*.hmap
+*.ipa
+
+# Android Studio (hidden directory)
+.gradle/
+.android/
+
+# Flutter/Dart (hidden files)
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Rust (hidden directory)
+.cargo/
+
+# Go (hidden directory)
+.vscode-go/
+
+# Python (hidden files/directories)
+.python-version
+.pyc
+__pycache__/
+.pytest_cache/
+.coverage
+.tox/
+.env
+.venv/
+
+# Node.js (hidden files/directories)
+.npm/
+.node_repl_history
+.nyc_output/
+
+# Git (hidden directory - but don't ignore .git itself)
+# .git/ - DO NOT IGNORE THIS
+.gitconfig.local
+
+# General hidden configuration files
+.config/
+.cache/
+.local/
+
+# =============================================================================
+# OPERATING SYSTEM FILES
+# =============================================================================
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# =============================================================================
+# TEMPORARY AND LOG FILES
+# =============================================================================
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.#*
+#*#
+
+# Log files
+*.log
+*.out
+*.err
+
+# Core dumps
+core
+core.*
+*.core
+
+# =============================================================================
+# PROJECT-SPECIFIC FILES
+# =============================================================================
+
+# Test output files (if auto-generated)
+OUTPUT*_SLOW.TXT
+OUTPUT*_FAST.TXT
+test_output_*.txt
+*_output.txt
+
+# Generated test files (if you have a generator)
+generated_test_*.txt
+
+# Timing results
+timing_results.txt
+performance_log.txt
+
+# Backup files
+*.bak
+*.backup
+*_backup.*
+
+# =============================================================================
+# COMPRESSION AND ARCHIVE FILES
+# =============================================================================
+
+# Archives (but keep project ZIP if required for submission)
+# *.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# =============================================================================
+# DEBUGGING AND PROFILING
+# =============================================================================
+
+# GDB
+.gdb_history
+
+# Valgrind
+vgcore.*
+*.valgrind
+
+# AddressSanitizer
+*.asan
+
+# =============================================================================
+# DOCUMENTATION BUILD ARTIFACTS
+# =============================================================================
+
+# LaTeX
+*.aux
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.nav
+*.snm
+*.toc
+*.vrb
+
+# =============================================================================
+# CUSTOM PATTERNS
+# =============================================================================
+
+# Add any project-specific patterns here
+# Example: ignore any file ending with _test
+*_test
+*_TEST
+
+# Ignore any numbered backup files
+*.[0-9]
+*.[0-9][0-9]
+
+# End of .gitignore
