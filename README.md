@@ -219,6 +219,32 @@ For large datasets (32,768 points), expect:
 
 This implementation follows the project requirements for original code development. All algorithms are implemented from scratch without copying existing implementations, in compliance with academic honesty policies.
 
+## Git Commit Conventions
+
+This project follows conventional commit types for better version control management:
+
+| Type | Purpose |
+|------|---------|
+| `feat` | Add a new feature (functions, logic) |
+| `fix` | Fix a bug (incorrect output, logic errors) |
+| `refactor` | Improve code without changing behavior |
+| `perf` | Optimize performance (faster loops, better memory usage) |
+| `style` | Formatting changes (indentation, comments) |
+| `test` | Add or update test cases |
+| `build` | Modify Makefile or compilation setup |
+| `docs` | Update README, specs, or comments |
+| `chore` | Non-code maintenance (renaming files, updating .gitignore) |
+
+### Example Commit Messages:
+```
+feat: implement stack data structure with NEXT-TO-TOP operation
+fix: correct orientation calculation for collinear points
+perf: optimize quick sort partitioning algorithm
+test: add test cases for 32768 points
+docs: update README with compilation instructions
+style: format code according to project standards
+```
+
 ---
 
 **Note**: This project demonstrates the practical impact of algorithm choice on performance, particularly how sorting algorithm efficiency affects the overall performance of computational geometry algorithms like Graham's Scan.
