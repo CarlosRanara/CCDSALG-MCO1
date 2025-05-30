@@ -39,9 +39,39 @@ Graham's Scan Project/
 
 ### Prerequisites
 - GCC compiler with C99 standard support
-- Make sure you have `time.h` library available for timing functions
+- Make utility (for using Makefile)
+- Math library support (`-lm` flag)
 
-### Compilation Commands
+### Quick Start with Makefile
+
+**Build everything:**
+```bash
+make
+# or
+make all
+```
+
+**Run both versions interactively:**
+```bash
+make run-interactive
+```
+
+**Run performance tests:**
+```bash
+make test
+```
+
+**Clean build artifacts:**
+```bash
+make clean
+```
+
+**See all available commands:**
+```bash
+make help
+```
+
+### Manual Compilation Commands
 
 **Compile Slow Version (Bubble Sort):**
 ```bash
@@ -53,41 +83,54 @@ gcc -Wall -std=c99 stack.c sort.c graham_scan1.c main1.c -o graham_slow -lm
 gcc -Wall -std=c99 stack.c sort.c graham_scan2.c main2.c -o graham_fast -lm
 ```
 
-### Alternative: Using Makefile
-Create a Makefile with the following content:
-```makefile
-CC = gcc
-CFLAGS = -Wall -std=c99
-LDFLAGS = -lm
+### Makefile Targets
 
-all: graham_slow graham_fast
-
-graham_slow: stack.o sort.o graham_scan1.o main1.o
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
-
-graham_fast: stack.o sort.o graham_scan2.o main2.o
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c $<
-
-clean:
-	rm -f *.o graham_slow graham_fast
-```
-
-Then compile with:
-```bash
-make
-```
+| Target | Description |
+|--------|-------------|
+| `make` or `make all` | Build both slow and fast versions |
+| `make graham_slow` | Build slow version only |
+| `make graham_fast` | Build fast version only |
+| `make run` | Run both versions with sample input |
+| `make run-interactive` | Run both versions with user input prompts |
+| `make run-slow` | Run slow version only |
+| `make run-fast` | Run fast version only |
+| `make test` | Run performance tests on all INPUT files |
+| `make check` | Verify all required source files exist |
+| `make clean` | Remove object files and executables |
+| `make clean-all` | Remove all generated files including outputs |
+| `make debug` | Build with debug symbols |
+| `make release` | Build optimized version |
+| `make size` | Show executable file sizes |
+| `make help` | Display all available commands |
 
 ## Running the Programs
 
-### Slow Version
+### Using Makefile (Recommended)
+
+**Interactive Mode (prompts for filenames):**
+```bash
+make run-interactive
+```
+
+**Automated Testing:**
+```bash
+make test
+```
+
+**Run Individual Versions:**
+```bash
+make run-slow    # Run slow version only
+make run-fast    # Run fast version only
+```
+
+### Manual Execution
+
+**Slow Version:**
 ```bash
 ./graham_slow
 ```
 
-### Fast Version
+**Fast Version:**
 ```bash
 ./graham_fast
 ```
@@ -96,6 +139,26 @@ make
 When prompted, enter:
 1. Input filename (e.g., `INPUT1.TXT`)
 2. Output filename (e.g., `OUTPUT1.TXT`)
+
+### Development Workflow
+
+**Complete development cycle:**
+```bash
+# Check if all files are present
+make check
+
+# Build everything
+make
+
+# Run quick test
+make run-interactive
+
+# Run full performance tests
+make test
+
+# Clean up when done
+make clean
+```
 
 ## File Formats
 
@@ -165,24 +228,60 @@ The project includes timing measurements to compare the performance of slow vs. 
 
 ## Sample Usage
 
+### Complete Workflow Example
+
 ```bash
-# Compile both versions
+# 1. Check prerequisites and files
+make check
+
+# 2. Build both versions
+make
+# Output: graham_slow and graham_fast executables created
+
+# 3. Run interactive mode
+make run-interactive
+# Example session:
+# === Running Graham's Scan (Slow Version) ===
+# Enter input filename: INPUT1.TXT
+# Enter output filename: OUTPUT1_SLOW.TXT
+# Graham's Scan (Bubble Sort) execution time: 1.23 milliseconds
+# Convex hull computation complete. Results written to OUTPUT1_SLOW.TXT
+#
+# === Running Graham's Scan (Fast Version) ===
+# Enter input filename: INPUT1.TXT  
+# Enter output filename: OUTPUT1_FAST.TXT
+# Graham's Scan (Quick Sort) execution time: 0.45 milliseconds
+# Convex hull computation complete. Results written to OUTPUT1_FAST.TXT
+
+# 4. Run performance tests on all test cases
+make test
+# Automatically processes INPUT1.TXT through INPUT5.TXT
+
+# 5. Check executable sizes
+make size
+
+# 6. Clean up when done
+make clean
+```
+
+### Manual Compilation and Execution
+```bash
+# Manual compilation
 gcc -Wall -std=c99 stack.c sort.c graham_scan1.c main1.c -o graham_slow -lm
 gcc -Wall -std=c99 stack.c sort.c graham_scan2.c main2.c -o graham_fast -lm
 
-# Run slow version
+# Manual execution
 ./graham_slow
-Enter input filename (including extension): INPUT1.TXT
-Enter output filename (including extension): OUTPUT1_SLOW.TXT
-Graham's Scan (Bubble Sort) execution time: 1.23 milliseconds
-Convex hull computation complete. Results written to OUTPUT1_SLOW.TXT
+# Enter input filename (including extension): INPUT1.TXT
+# Enter output filename (including extension): OUTPUT1_SLOW.TXT
+# Graham's Scan (Bubble Sort) execution time: 1.23 milliseconds
+# Convex hull computation complete. Results written to OUTPUT1_SLOW.TXT
 
-# Run fast version
 ./graham_fast
-Enter input filename (including extension): INPUT1.TXT
-Enter output filename (including extension): OUTPUT1_FAST.TXT
-Graham's Scan (Quick Sort) execution time: 0.45 milliseconds
-Convex hull computation complete. Results written to OUTPUT1_FAST.TXT
+# Enter input filename (including extension): INPUT1.TXT
+# Enter output filename (including extension): OUTPUT1_FAST.TXT
+# Graham's Scan (Quick Sort) execution time: 0.45 milliseconds
+# Convex hull computation complete. Results written to OUTPUT1_FAST.TXT
 ```
 
 ## Expected Performance Results
