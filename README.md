@@ -237,12 +237,27 @@ This project follows conventional commit types for better version control manage
 
 ### Example Commit Messages:
 ```
-feat: implement stack data structure with NEXT-TO-TOP operation
-fix: correct orientation calculation for collinear points
-perf: optimize quick sort partitioning algorithm
-test: add test cases for 32768 points
-docs: update README with compilation instructions
-style: format code according to project standards
+feat(stack.h): implement stack data structure with NEXT-TO-TOP operation
+feat(sort.c): implement bubble sort and quick sort algorithms
+feat(graham_scan1.c): implement Graham's Scan with bubble sort
+fix(orientation): correct calculation for collinear points
+refactor(sort.c): optimize quick sort partitioning algorithm
+refactor(stack.h): improve function naming conventions
+perf(graham_scan2.c): optimize memory usage in hull processing
+style(functions): whitespace adjustment and code formatting
+test(INPUT5.TXT): add test case for 32768 points
+build(Makefile): add compilation targets for both versions
+docs(README): create comprehensive project documentation
+chore(.gitignore): add IDE and executable files to gitignore
+```
+
+### Commit Message Format:
+```
+<type>(<scope>): <description>
+
+Example:
+feat(stack): implement NEXT-TO-TOP operation for Graham's Scan
+fix(sort): correct polar angle comparison for collinear points
 ```
 
 ---
