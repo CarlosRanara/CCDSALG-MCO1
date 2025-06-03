@@ -1,3 +1,4 @@
+
 # Graham's Scan Convex Hull Project
 ## CCDSALG/GDDASGO Term 1, AY 2024-2025
 
@@ -21,15 +22,25 @@ Graham's Scan Project/
 │
 ├── Test Files
 │   ├── INPUT1.TXT           # Test case 1 (2^6 = 64 points)
-│   ├── INPUT2.TXT           # Test case 2 (2^8 = 256 points)
-│   ├── INPUT3.TXT           # Test case 3 (2^10 = 1024 points)
-│   ├── INPUT4.TXT           # Test case 4 (2^12 = 4096 points)
-│   ├── INPUT5.TXT           # Test case 5 (2^15 = 32768 points)
+│   ├── INPUT2.TXT           # Test case 2 (2^7 = 128 points)
+│   ├── INPUT3.TXT           # Test case 3 (2^8 = 256 points)
+│   ├── INPUT4.TXT           # Test case 4 (2^9 = 512 points)
+│   ├── INPUT5.TXT           # Test case 5 (2^10 = 1024 points)
+│   ├── INPUT6.TXT           # Test case 6 (2^11 = 2048 points)
+│   ├── INPUT7.TXT           # Test case 7 (2^12 = 4096 points)
+│   ├── INPUT8.TXT           # Test case 8 (2^13 = 8192 points)
+│   ├── INPUT9.TXT           # Test case 9 (2^14 = 16384 points)
+│   ├── INPUT10.TXT          # Test case 10 (2^15 = 32768 points)
 │   ├── OUTPUT1.TXT          # Output for test case 1
 │   ├── OUTPUT2.TXT          # Output for test case 2
 │   ├── OUTPUT3.TXT          # Output for test case 3
 │   ├── OUTPUT4.TXT          # Output for test case 4
-│   └── OUTPUT5.TXT          # Output for test case 5
+│   ├── OUTPUT5.TXT          # Output for test case 5
+│   ├── OUTPUT6.TXT          # Output for test case 6
+│   ├── OUTPUT7.TXT          # Output for test case 7
+│   ├── OUTPUT8.TXT          # Output for test case 8
+│   ├── OUTPUT9.TXT          # Output for test case 9
+│   └── OUTPUT10.TXT         # Output for test case 10
 │
 └── Documentation
     └── GROUPNUMBER.PDF      # Project documentation
@@ -56,7 +67,7 @@ make all
 make run-interactive
 ```
 
-**Run performance tests:**
+**Run performance tests on all 10 test cases:**
 ```bash
 make test
 ```
@@ -196,8 +207,8 @@ Where:
 - **Special Feature**: NEXT-TO-TOP operation for Graham's Scan algorithm
 
 ### Sorting Algorithms
-- **Slow Algorithm**: Bubble Sort (O(n²) complexity)
-- **Fast Algorithm**: Quick Sort (O(n log n) complexity)
+- **Slow Algorithm**: Bubble Sort (O(n²) complexity) - Group 16 Assignment
+- **Fast Algorithm**: Merge Sort (O(n log n) complexity) - Group 16 Assignment
 - **Sorting Criteria**: Polar angle with respect to anchor point
 - **Tie-breaking**: Distance from anchor point for collinear points
 
@@ -287,9 +298,9 @@ gcc -Wall -std=c99 stack.c sort.c graham_scan2.c main2.c -o graham_fast -lm
 ## Expected Performance Results
 
 For large datasets (32,768 points), expect:
-- **Slow Version**: Several seconds to minutes
-- **Fast Version**: Milliseconds to seconds
-- **Performance Ratio**: Fast version typically 10-100x faster for large inputs
+- **Slow Version (Bubble Sort)**: Several minutes (O(n²) complexity)
+- **Fast Version (Merge Sort)**: Seconds (O(n log n) complexity)
+- **Performance Ratio**: Fast version typically 50-1000x faster for large inputs
 
 ## Troubleshooting
 
@@ -337,16 +348,16 @@ This project follows conventional commit types for better version control manage
 ### Example Commit Messages:
 ```
 feat(stack.h): implement stack data structure with NEXT-TO-TOP operation
-feat(sort.c): implement bubble sort and quick sort algorithms
+feat(sort.c): implement bubble sort and merge sort algorithms (Group 16)
 feat(graham_scan1.c): implement Graham's Scan with bubble sort
+feat(graham_scan2.c): implement Graham's Scan with merge sort
 fix(orientation): correct calculation for collinear points
-refactor(sort.c): optimize quick sort partitioning algorithm
-refactor(stack.h): improve function naming conventions
+refactor(sort.c): optimize merge sort implementation
 perf(graham_scan2.c): optimize memory usage in hull processing
 style(functions): whitespace adjustment and code formatting
-test(INPUT5.TXT): add test case for 32768 points
-build(Makefile): add compilation targets for both versions
-docs(README): create comprehensive project documentation
+test(INPUT10.TXT): add test case for 32768 points
+build(Makefile): add compilation targets for 10 test cases
+docs(README): update documentation for Group 16 requirements
 chore(.gitignore): add IDE and executable files to gitignore
 ```
 
