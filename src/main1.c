@@ -2,21 +2,19 @@
  * main1.c
  * Driver program for Graham's Scan using bubble sort (slow version)
  */
-
 #include <stdio.h>
 #include "graham_scan.h"
 
 #define MAX_FILENAME_LENGTH 256
 
-void processConvexHullSlow(void);
+void processConvexHullSlow();
 
-int main(void) {
+int main () {
     processConvexHullSlow();
-    
     return 0;
 }
 
-void processConvexHullSlow(void) {
+void processConvexHullSlow() {
     char szInputFilename[MAX_FILENAME_LENGTH];
     char szOutputFilename[MAX_FILENAME_LENGTH];
     FILE *pInputFile = NULL;
@@ -52,10 +50,9 @@ void processConvexHullSlow(void) {
     }
     
     if (bProceed) {
-        /* Open input file */
-        pInputFile = fopen(szInputFilename, "r");
-        if (pInputFile == NULL) {
-            fprintf(stderr, "Error opening input file: %s\n", szInputFilename);
+        /* Open input file using standard pattern */
+        if ((pInputFile = fopen(szInputFilename, "r")) == NULL) {
+            fprintf(stderr, "ERROR: %s does not exist.\n", szInputFilename);
             bProceed = 0;
         }
     }
@@ -71,19 +68,16 @@ void processConvexHullSlow(void) {
     
     if (bProceed) {
         /* Read points from file */
-        i = 0;
-        while (i < nPoints && bProceed) {
+        for (i = 0; i < nPoints && bProceed; i++) {
             nScanResult = fscanf(pInputFile, "%lf %lf", &arrPoints[i].x, &arrPoints[i].y);
             if (nScanResult != 2) {
                 fprintf(stderr, "Error reading point %d\n", i + 1);
                 bProceed = 0;
             }
-            i++;
         }
     }
     
     if (pInputFile != NULL) {
-        /* Close input file */
         fclose(pInputFile);
     }
     
@@ -91,10 +85,9 @@ void processConvexHullSlow(void) {
         /* Compute convex hull using Graham's Scan with bubble sort */
         grahamScanSlow(arrPoints, nPoints, arrHull, &nHullSize);
         
-        /* Open output file */
-        pOutputFile = fopen(szOutputFilename, "w");
-        if (pOutputFile == NULL) {
-            fprintf(stderr, "Error opening output file: %s\n", szOutputFilename);
+        /* Open output file using standard pattern */
+        if ((pOutputFile = fopen(szOutputFilename, "w")) == NULL) {
+            fprintf(stderr, "ERROR: Cannot create output file %s.\n", szOutputFilename);
             bProceed = 0;
         }
     }
@@ -104,15 +97,12 @@ void processConvexHullSlow(void) {
         fprintf(pOutputFile, "%d\n", nHullSize);
         
         /* Write hull points to output file with 6 decimal places */
-        i = 0;
-        while (i < nHullSize) {
+        for (i = 0; i < nHullSize; i++) {
             fprintf(pOutputFile, "%.6lf %.6lf\n", arrHull[i].x, arrHull[i].y);
-            i++;
         }
     }
     
     if (pOutputFile != NULL) {
-        /* Close output file */
         fclose(pOutputFile);
         
         if (bProceed) {
