@@ -1,32 +1,17 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-#ifndef MAX
+#define MAX 32768
 
-    /*
-        Max size of stack array
-    */
-    #define MAX 32768
-    #define ERROR -999
+typedef struct{
+    int top;
+    double array[MAX];
+}stack;
 
-    /*
-        Struct for stack array
-    */
-    typedef struct {
-        int arr[MAX];
-        int top;
-    } Stack;
-
-
-   /*
-        Prototypes for stack operations
-   */
-    void CREATE(Stack *s);
-    void PUSH(Stack *s, int elem);
-    int POP(Stack *s);
-    int TOP(Stack *s);
-    int ISFULL(Stack *s);
-    int ISEMPTY(Stack *s);
-    int NEXT_TO_TOP(Stack *s);
-
-
-#endif
+void create(stack *S);
+void push(stack *S, double elem);
+double pop(stack *S);
+double top(stack S);
+double nextToTop(S);
+int isFull(stack S);
+int isEmpty(stack S);

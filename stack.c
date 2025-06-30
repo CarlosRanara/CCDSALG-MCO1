@@ -1,54 +1,63 @@
-#include <stdio.h>
-#include "stack.h"
+#include <stack.h>
 
-void CREATE(Stack *s) {
-    s->top = -1;
+/*
+    This initializes a Stack called S
+*/
+void create(stack *S){
+    S->top = 0;
 }
 
-int ISEMPTY(Stack *s) {
-    return s->top < 0;
+/*
+    This inserts an element at the top of the stack
+*/
+void push(stack *S, double elem){
+    S->array[S->top] = elem;
+    S->top++;
 }
 
-int ISFULL(Stack *s) {
-    return s->top >= MAX - 1;
+/*
+    This removes the top element of the stack and returns it
+*/
+double pop(stack *S){
+    double tempD;
+
+    tempD = top(*S);
+    S->top--;
+    return tempD;
 }
 
-int NEXT_TO_TOP(Stack *s) {
-    if (s->top > 0) {
-        printf("NEXT TO TOP SUCCESS: You are accessing index %d\n", s->top-1);
-        return s->arr[s->top-1];
-    } else {
-        printf("NEXT TO TOP ERROR: You are trying to access invalid index %d\n", s->top-1);
-        return ERROR;
-    }
+/*
+    This returns the top element of the stack
+*/
+double top(stack S){
+    return S.array[S.top - 1];
 }
 
-void PUSH(Stack *s, int elem) {
-    if (!ISFULL(s)) {
-        s->arr[++(s->top)] = elem;
-        printf("PUSH SUCCESS: Element %d pushed as index %d\n", elem, s->top);
-    } else {
-        printf("PUSH ERROR: You are trying to access invalid index %d\n", s->top+1);
-    }
+/*
+    This returns the secondmost top element of the stack
+*/
+double nextToTop(stack S){
+    return S.array[S.top - 2];
 }
 
-int POP(Stack *s) {
-    if (!ISEMPTY(s)) {
-        printf("POP SUCCESS: You are accessing index %d\n", s->top);
-        return s->arr[(s->top)--];
-    } else {
-        printf("POP ERROR: You are trying to access invalid index %d\n", s->top);
-        return ERROR;
-    }
+/*
+    This determines if the stack has reached the maximum number of elements
+    Returns 1 if TRUE, 0 if FALSE
+*/
+int isFull(stack S){
+    if(top == MAX)
+        return 1;//true
+    else
+        return 0;//false
 }
 
-int TOP(Stack *s) {
-    if (!ISEMPTY(s)) {
-        printf("TOP SUCCESS: You are accessing index %d\n", s->top);
-        return s->arr[s->top];
-    } else {
-        printf("TOP ERROR: You are trying to access invalid index %d\n", s->top);
-        return ERROR;
-    }
+/*
+    This determines if the stack has no elements in it
+    Returns 1 if TRUE, 0 if FALSE
+*/
+int isEmpty(stack S){
+    if(top == 0)
+        return 1;//true
+    else    
+        return 0;//false
 }
-
