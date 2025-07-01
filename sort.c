@@ -28,9 +28,9 @@ double distanceSquared(Point first, Point second) {
     return xResult*xResult + yResult*yResult;
 }
 
-void anchorToIndexZero(Point points[], int currentPoints) {
+void anchorToIndexZero(Point points[], long int currentPoints) {
     int minIndex = 0;
-    for (int i = 1; i < currentPoints; i++) {
+    for (long int i = 1; i < currentPoints; i++) {
 
         if (points[minIndex].y > points[i].y) {
             minIndex = i;
@@ -48,10 +48,10 @@ void anchorToIndexZero(Point points[], int currentPoints) {
     swap(&points[0], &points[minIndex]);
 }
 
-void bubbleSort(Point points[], int currentPoints, Point anchor) {
+void bubbleSort(Point points[], long int currentPoints, Point anchor) {
 
-    for (int i = 1; i < currentPoints-1; i++) {
-        for (int j = 1; j < currentPoints-i; j++) {
+    for (long int i = 1; i < currentPoints-1; i++) {
+        for (long int j = 1; j < currentPoints-i; j++) {
 
             int outcome = orientation(anchor, points[j], points[j+1]);
 
@@ -72,10 +72,10 @@ void bubbleSort(Point points[], int currentPoints, Point anchor) {
     }
 }
 
-void merger(Point points[], int start, int middle, int end, Point anchor) {
-    int i, j, k;
-    int leftEnd = middle - start + 1;
-    int rightEnd = end - middle;
+void merger(Point points[], long int start, long int middle, long int end, Point anchor) {
+    long int i, j, k;
+    long int leftEnd = middle - start + 1;
+    long int rightEnd = end - middle;
 
     Point tempLeft[leftEnd], tempRight[rightEnd];
 
@@ -133,9 +133,9 @@ void merger(Point points[], int start, int middle, int end, Point anchor) {
     }
 }
 
-void mergeSort(Point points[], int start, int end) {
+void mergeSort(Point points[], long int start, long int end) {
     if (start < end) {
-        int mid = start + (end - start) / 2;
+        long int mid = start + (end - start) / 2;
 
         mergeSort(points, start, mid);
         mergeSort(points, mid + 1, end);
