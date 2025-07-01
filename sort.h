@@ -6,12 +6,12 @@
     /*
         Prototypes for Sorting Algorithms
     */
-    void anchorToIndexZero(Point points[], int currentPoints);
-    void bubbleSort(Point points[], int currentPoints, Point anchor);
+    void anchorToIndexZero(Point points[], long int currentPoints);
+    void bubbleSort(Point points[], long int currentPoints, Point anchor);
     int orientation(Point anchor, Point first, Point second);
     void swap(Point *first, Point *second);
     double distanceSquared(Point first, Point second);
-    void mergeSort(Point points[], int start, int end);
-    void merger(Point points[], int start, int middle, int end, Point anchor);
+    void mergeSort(Point points[], long int start, long int end);
+    void merger(Point points[], long int start, long int middle, long int end, Point anchor);
 
 #endif
