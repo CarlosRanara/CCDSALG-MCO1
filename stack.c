@@ -13,17 +13,20 @@ int ISFULL(Stack *s) {
     return s->top >= MAX - 1;
 }
 
-int NEXT_TO_TOP(Stack *s) {
+Point NEXT_TO_TOP(Stack *s) {
     if (s->top > 0) {
         printf("NEXT TO TOP SUCCESS: You are accessing index %d\n", s->top-1);
         return s->arr[s->top-1];
     } else {
         printf("NEXT TO TOP ERROR: You are trying to access invalid index %d\n", s->top-1);
-        return ERROR;
+        Point error;
+        error.x = ERROR;
+        error.y = ERROR;
+        return error;
     }
 }
 
-void PUSH(Stack *s, int elem) {
+void PUSH(Stack *s, Point elem) {
     if (!ISFULL(s)) {
         s->arr[++(s->top)] = elem;
         printf("PUSH SUCCESS: Element %d pushed as index %d\n", elem, s->top);
@@ -32,23 +35,29 @@ void PUSH(Stack *s, int elem) {
     }
 }
 
-int POP(Stack *s) {
+Point POP(Stack *s) {
     if (!ISEMPTY(s)) {
         printf("POP SUCCESS: You are accessing index %d\n", s->top);
         return s->arr[(s->top)--];
     } else {
         printf("POP ERROR: You are trying to access invalid index %d\n", s->top);
-        return ERROR;
+        Point error;
+        error.x = ERROR;
+        error.y = ERROR;
+        return error;
     }
 }
 
-int TOP(Stack *s) {
+Point TOP(Stack *s) {
     if (!ISEMPTY(s)) {
         printf("TOP SUCCESS: You are accessing index %d\n", s->top);
         return s->arr[s->top];
     } else {
         printf("TOP ERROR: You are trying to access invalid index %d\n", s->top);
-        return ERROR;
+        Point error;
+        error.x = ERROR;
+        error.y = ERROR;
+        return error;
     }
 }
 
