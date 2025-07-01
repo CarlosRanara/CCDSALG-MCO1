@@ -29,7 +29,7 @@ Point NEXT_TO_TOP(Stack *s) {
 void PUSH(Stack *s, Point elem) {
     if (!ISFULL(s)) {
         s->arr[++(s->top)] = elem;
-        printf("PUSH SUCCESS: Element {%d, %d} pushed as index %d\n", elem.x, elem.y, s->top);
+        printf("PUSH SUCCESS: Element {%lf, %lf} pushed as index %d\n", elem.x, elem.y, s->top);
     } else {
         printf("PUSH ERROR: You are trying to access invalid index %d\n", s->top+1);
     }
