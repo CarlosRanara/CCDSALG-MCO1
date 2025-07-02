@@ -1,4 +1,4 @@
-#include <stack.h>
+#include "stack.h"
 
 /*
     This initializes a Stack called S
@@ -10,7 +10,7 @@ void create(stack *S){
 /*
     This inserts an element at the top of the stack
 */
-void push(stack *S, double elem){
+void push(stack *S, point elem){
     S->array[S->top] = elem;
     S->top++;
 }
@@ -18,25 +18,25 @@ void push(stack *S, double elem){
 /*
     This removes the top element of the stack and returns it
 */
-double pop(stack *S){
-    double tempD;
+point pop(stack *S){
+    point tempPoint;
 
-    tempD = top(*S);
+    tempPoint = top(*S);
     S->top--;
-    return tempD;
+    return tempPoint;
 }
 
 /*
     This returns the top element of the stack
 */
-double top(stack S){
+point top(stack S){
     return S.array[S.top - 1];
 }
 
 /*
     This returns the secondmost top element of the stack
 */
-double nextToTop(stack S){
+point nextToTop(stack S){
     return S.array[S.top - 2];
 }
 
@@ -45,7 +45,7 @@ double nextToTop(stack S){
     Returns 1 if TRUE, 0 if FALSE
 */
 int isFull(stack S){
-    if(top == MAX)
+    if(S.top == MAX)
         return 1;//true
     else
         return 0;//false
@@ -56,7 +56,7 @@ int isFull(stack S){
     Returns 1 if TRUE, 0 if FALSE
 */
 int isEmpty(stack S){
-    if(top == 0)
+    if(S.top == 0)
         return 1;//true
     else    
         return 0;//false
