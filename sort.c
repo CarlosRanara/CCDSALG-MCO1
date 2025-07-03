@@ -117,7 +117,7 @@ void bubbleSort(pointType points[], int nSize, pointType anchor) {
 
 /* Merge function for Merge Sort */
 void mergeArrays(pointType points[], int nLeft, int nMid, int nRight, pointType anchor) {
-    static pointType leftArray[16384], rightArray[16384];
+    pointType leftArray[16384], rightArray[16384];
     int nLeftSize, nRightSize, i, j, k, nComparison;
     
     nLeftSize = nMid - nLeft + 1;
