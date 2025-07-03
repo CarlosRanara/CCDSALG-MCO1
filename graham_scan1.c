@@ -1,5 +1,3 @@
-#include "graham_scan.h"
-
 /*
     Performs Graham's Scan Algorithm using a Bubble sort algorithm to sort points
 */
@@ -16,14 +14,12 @@ void grahamScanSlow(point set[], stack *S, int n){
     //initialize anchor point
     index = findAnchor(set, n);
     anchor = set[index];
-    printf("\nAnchor: %lf, %lf", anchor.x, anchor.y);
 
     //initialize reference points
     while(i < n - 1){
         if(j != index){
             references[i] = set[j];
             findPolar(anchor, &references[i]);
-            printf("\nPolar angle of %lf, %lf: %lf", references[i].x, references[i].y, references[i].angle);
             i++;
         }
         j++;
@@ -31,33 +27,26 @@ void grahamScanSlow(point set[], stack *S, int n){
 
     //sort non-anchor/reference points
     bubbleSort(references, n - 1);
-    printf("\nSorted points: ");
-    for(i = 0; i < n - 1; i++){
-        printf("\n%d). %.6lf, %.6lf ", (i + 1), references[i].x, references[i].y);
-    }
 
     //perform Graham Scan
     i = 0;
-    create(S);
     push(S, anchor);
     push(S, references[i]);
     i++;
 
     while(i < n - 1){
-        if( isCtrClockwise(top(*S), references[i]) ){
-            push(S, references[i]);
-            printf("\npush!");
-            i++;
+        if(S->top > 1 && !isCtrClockwise(nextToTop(S), top(S), references[i])){
+            pop(S);
+        // Don't increment i - check same point again with new stack top
         }
         else{
-            printf("\npop!");
-            pop(S);
+            push(S, references[i]);
+            i++;  // Only increment when we successfully push
         }
-    
-        printf("\t\t%d", i);
     }
+
 
     end = clock();
 
-    printf("\nTime elapsed: %15lf", (double)(end - start));
+    printf("\nTime elapsed: %15lf seconds", (double)(end - start));
 }

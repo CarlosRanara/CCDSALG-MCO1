@@ -3,7 +3,7 @@
 #include "stack.c"
 #include "sort.c"
 #include "graham_scan.h"
-#include "graham_scan1.c"
+#include "graham_scan2.c"
 
 typedef char String50[51];
 
@@ -37,14 +37,14 @@ int main(){
 
         //perform Graham's scan
         create(&hullPoints);
-        grahamScanSlow(set, &hullPoints, n);
+        grahamScanFast(set, &hullPoints, n);
 
         //print m number of points on convex hull
         fprintf(fpOutput, "%d\n", hullPoints.top);
 
         //print convex hull points in outputFile
         for(ctr = 0; ctr < hullPoints.top; ctr++){
-            fprintf(fpOutput, "   %-3.6lf\t%-3.6lf\n", hullPoints.array[ctr].x, hullPoints.array[ctr].y);
+            fprintf(fpOutput, "   %3.6lf\t%3.6lf\n", hullPoints.array[ctr].x, hullPoints.array[ctr].y);
         }
 
         //close outputFile when done writing

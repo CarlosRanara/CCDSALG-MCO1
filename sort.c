@@ -1,6 +1,5 @@
 #include "sort.h"
-#define _USE_MATH_DEFINES
-#include <math.h>
+
 
 /*
     This is used in the function mergeSort().
@@ -87,6 +86,11 @@ void bubbleSort(point references[], int size){
                 references[j] = references[j + 1];
                 references[j + 1] = tempPoint;
             }
+            else if(references[j].angle == references[j + 1].angle && references[j].x > references[j + 1].x){
+                tempPoint = references[j];
+                references[j] = references[j + 1];
+                references[j + 1] = tempPoint;
+            }
         }
     }
 }
@@ -127,7 +131,7 @@ void findPolar(point anchor, point *reference){
     //computing polar angle by formula: arctan(y / x)
     //atan (or arctan) requires an angle in radians so multiply by pi/180
     //atan gives an angle in radians so multiply by 180/pi to get degrees 
-    reference->angle = (atan((distanceY / distanceX))) * (180.0 / M_PI);
+    reference->angle = (atan2(distanceY, distanceX)) * (180.0 / M_PI);
 }
 
 
@@ -136,13 +140,9 @@ void findPolar(point anchor, point *reference){
     Determines if the angle made from the starting point to the end point is counter-clockwise or not.
     Returns 1 if counter-clockwise, 0 if clockwise.
 */
-int isCtrClockwise(point start, point end){
-    double vectorS, vectorE;
+int isCtrClockwise(point nextTop, point top, point current){
 
-    vectorS = sqrt( pow(start.x, 2) + pow(start.y, 2));
-    vectorE = sqrt( pow(end.x, 2) + pow(end.y, 2));
-
-    if(vectorS * vectorE > 0)
+    if( (top.x - nextTop.x) * (current.y - top.y) - (current.x - top.x) * (top.y - nextTop.y) > 0)
         return 1;
     else
         return 0;

@@ -1,5 +1,3 @@
-#include "graham_scan.h"
-
 /*
     Performs Graham's Scan Algorithm using a Merge sort algorithm to sort points
 */
@@ -36,17 +34,20 @@ void grahamScanFast(point set[], stack *S, int n){
     push(S, anchor);
     push(S, references[i]);
     i++;
+
     while(i < n - 1){
-        if( isCtrClockwise(references[i - 1], references[i]) ){
-            push(S, references[i]);
-            i++;
+        if(S->top > 1 && !isCtrClockwise(nextToTop(S), top(S), references[i])){
+            pop(S);
+        // Don't increment i - check same point again with new stack top
         }
         else{
-            pop(S);
+            push(S, references[i]);
+            i++;  // Only increment when we successfully push
         }
     }
 
+
     end = clock();
 
-    printf("\nTime elapsed: %15lf", (double)(end - start));
+    printf("\nTime elapsed: %15lf seconds", (double)(end - start));
 }

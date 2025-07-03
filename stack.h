@@ -1,5 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
+
+
+#ifndef HEADER_H
+#define HEADER_H
 
 #define MAX 32768
 
@@ -18,7 +20,9 @@ typedef struct{
 void create(stack *S);
 void push(stack *S, point elem);
 point pop(stack *S);
-point top(stack S);
-point nextToTop(stack S);
-int isFull(stack S);
-int isEmpty(stack S);
+point top(stack *S);
+point nextToTop(stack *S);
+int isFull(stack *S);
+int isEmpty(stack *S);
+
+#endif
