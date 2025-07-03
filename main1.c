@@ -1,0 +1,83 @@
+/* ============================================================================
+ * FILE: main1.c
+ * Driver Program for Slow Version (Bubble Sort)
+ * Programmer: [Your Name]
+ * Tester: [Your Name]
+ * ============================================================================ */
+#include <stdio.h>
+#include <stdlib.h>
+#include "stack.h"
+
+/* Function prototype for Graham Scan with slow sorting */
+int grahamScan1(pointType points[], int nSize, pointType result[]);
+
+int main() {
+    FILE *pInputFile, *pOutputFile;
+    char sInputFilename[256], sOutputFilename[256];
+    pointType points[32768], result[32768];
+    int nSize, nHullSize, i;
+    
+    /* Ask user for input filename */
+    printf("Enter the filename and extension of the input text file: ");
+    scanf("%s", sInputFilename);
+    
+    /* Ask user for output filename */
+    printf("Enter the filename and extension of the output text file: ");
+    scanf("%s", sOutputFilename);
+    
+    /* Open input text file */
+    pInputFile = fopen(sInputFilename, "r");
+    if (pInputFile == NULL) {
+        printf("Error: Cannot open input file %s\n", sInputFilename);
+        return 1;
+    }
+    
+    /* Read input text file contents */
+    if (fscanf(pInputFile, "%d", &nSize) != 1) {
+        printf("Error: Cannot read number of points from input file\n");
+        fclose(pInputFile);
+        return 1;
+    }
+    
+    if (nSize > 32768 || nSize < 0) {
+        printf("Error: Invalid number of points (%d). Must be between 0 and 32768.\n", nSize);
+        fclose(pInputFile);
+        return 1;
+    }
+    
+    for (i = 0; i < nSize; i++) {
+        if (fscanf(pInputFile, "%lf %lf", &points[i].x, &points[i].y) != 2) {
+            printf("Error: Cannot read point %d from input file\n", i + 1);
+            fclose(pInputFile);
+            return 1;
+        }
+    }
+    
+    /* Close input file */
+    fclose(pInputFile);
+    
+    /* Call Graham scan algorithm implementation */
+    nHullSize = grahamScan1(points, nSize, result);
+    
+    /* Open output text file */
+    pOutputFile = fopen(sOutputFilename, "w");
+    if (pOutputFile == NULL) {
+        printf("Error: Cannot create output file %s\n", sOutputFilename);
+        return 1;
+    }
+    
+    /* Write output points to file */
+    fprintf(pOutputFile, "%d\n", nHullSize);
+    for (i = 0; i < nHullSize; i++) {
+        fprintf(pOutputFile, "%.6f %.6f\n", result[i].x, result[i].y);
+    }
+    
+    /* Close output file */
+    fclose(pOutputFile);
+    
+    printf("Convex hull computation completed successfully!\n");
+    printf("Number of input points: %d\n", nSize);
+    printf("Number of hull points: %d\n", nHullSize);
+    
+    return 0;
+}
