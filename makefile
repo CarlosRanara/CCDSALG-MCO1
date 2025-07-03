@@ -146,15 +146,15 @@ run-circle: $(SLOW_EXE) $(FAST_EXE)
 	@echo "Both versions completed. Check output files."
 
 # Performance testing
-.PHONY: test test-all test-performance
+.PHONY: test test-all test-performance bigtest generate-inputs
 test: test-performance
 
 test-all: $(SLOW_EXE) $(FAST_EXE)
 	@echo "=== Performance Testing ==="
 	@echo "Testing both versions with available input files..."
 	@for input in $(TEST_INPUTS); do \
-		if [ -f "$$input" ]; then \
-			echo "Testing with $$input"; \
+		if [ -f "$input" ]; then \
+			echo "Testing with $input"; \
 			echo "Running slow version..."; \
 			echo "Running fast version..."; \
 		fi; \
@@ -173,6 +173,169 @@ test-performance: $(SLOW_EXE) $(FAST_EXE)
 	@echo "   - Enter input filename: INPUTn.TXT" 
 	@echo "   - Enter output filename: OUTPUTn_FAST.TXT"
 	@echo "3. Record the execution times for comparison"
+
+# Automated comprehensive testing
+bigtest: $(SLOW_EXE) $(FAST_EXE) generate-inputs
+	@echo "=== BIG TEST: Automated Performance Testing ==="
+	@echo "This will run all 10 test cases automatically..."
+	@echo "Results will be saved in results/ directory"
+	@mkdir -p results
+	@echo "Test Case,Input Size,Slow Time (ms),Fast Time (ms),Slow Output File,Fast Output File" > results/performance_summary.csv
+	@echo ""
+	@for i in 1 2 3 4 5 6 7 8 9 10; do \
+		if [ -f "INPUT$i.TXT" ]; then \
+			echo "=== Running Test Case $i ==="; \
+			input_size=$(head -1 INPUT$i.TXT); \
+			echo "Input size: $input_size points"; \
+			echo ""; \
+			echo "Running slow version (Bubble Sort)..."; \
+			echo -e "INPUT$i.TXT\nresults/OUTPUT$i\_SLOW.TXT" | ./$(SLOW_EXE) > results/slow_$i.log 2>&1; \
+			slow_time=$(grep "execution time" results/slow_$i.log | sed 's/.*: \([0-9.]*\) milliseconds/\1/' || echo "N/A"); \
+			echo "Slow version completed in $slow_time ms"; \
+			echo ""; \
+			echo "Running fast version (Merge Sort)..."; \
+			echo -e "INPUT$i.TXT\nresults/OUTPUT$i\_FAST.TXT" | ./$(FAST_EXE) > results/fast_$i.log 2>&1; \
+			fast_time=$(grep "execution time" results/fast_$i.log | sed 's/.*: \([0-9.]*\) milliseconds/\1/' || echo "N/A"); \
+			echo "Fast version completed in $fast_time ms"; \
+			echo ""; \
+			echo "Comparing outputs..."; \
+			if diff results/OUTPUT$i\_SLOW.TXT results/OUTPUT$i\_FAST.TXT > /dev/null 2>&1; then \
+				echo "✓ Outputs are identical"; \
+			else \
+				echo "✗ Warning: Outputs differ!"; \
+			fi; \
+			echo "$i,$input_size,$slow_time,$fast_time,OUTPUT$i\_SLOW.TXT,OUTPUT$i\_FAST.TXT" >> results/performance_summary.csv; \
+			echo "----------------------------------------"; \
+			echo ""; \
+		else \
+			echo "✗ INPUT$i.TXT not found - skipping"; \
+		fi; \
+	done
+	@echo ""
+	@echo "=== BIG TEST COMPLETE ==="
+	@echo "Results saved in results/ directory:"
+	@echo "  - performance_summary.csv: Timing comparison table"
+	@echo "  - OUTPUT*_SLOW.TXT: Slow version outputs"
+	@echo "  - OUTPUT*_FAST.TXT: Fast version outputs"
+	@echo "  - slow_*.log: Slow version execution logs"
+	@echo "  - fast_*.log: Fast version execution logs"
+	@echo ""
+	@echo "Performance Summary:"
+	@cat results/performance_summary.csv
+	@echo ""
+	@echo "Use this data for your documentation table and graphs!"
+
+# Generate input files using Python script
+generate-inputs:
+	@echo "=== Generating Input Files ==="
+	@if [ -f "generate_inputs.py" ]; then \
+		echo "Using existing generate_inputs.py..."; \
+		python3 generate_inputs.py; \
+		echo "✓ All INPUT files generated successfully"; \
+	elif command -v python3 >/dev/null 2>&1; then \
+		echo "Python3 found but generate_inputs.py missing."; \
+		echo "Creating simple input files instead..."; \
+		$(MAKE) create-simple-inputs; \
+	else \
+		echo "Python3 not found. Creating simple input files..."; \
+		$(MAKE) create-simple-inputs; \
+	fi
+
+# Create simple input files without Python
+create-simple-inputs:
+	@echo "Creating INPUT files with simple patterns..."
+	@echo "64" > INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 10.0 0.0 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 9.951847 0.980171 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 9.807853 1.950903 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 9.569403 2.902846 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 9.238795 3.826834 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 8.819213 4.713967 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 8.314696 5.555702 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 7.730104 6.343933 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 7.071068 7.071068 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 6.343933 7.730104 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 5.555702 8.314696 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 4.713967 8.819213 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 3.826834 9.238795 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 2.902846 9.569403 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 1.950903 9.807853 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 0.980171 9.951847 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 0.0 10.0 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -0.980171 9.951847 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -1.950903 9.807853 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -2.902846 9.569403 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -3.826834 9.238795 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -4.713967 8.819213 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -5.555702 8.314696 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -6.343933 7.730104 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -7.071068 7.071068 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -7.730104 6.343933 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -8.314696 5.555702 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -8.819213 4.713967 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -9.238795 3.826834 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -9.569403 2.902846 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -9.807853 1.950903 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -9.951847 0.980171 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -10.0 0.0 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -9.951847 -0.980171 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -9.807853 -1.950903 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -9.569403 -2.902846 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -9.238795 -3.826834 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -8.819213 -4.713967 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -8.314696 -5.555702 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -7.730104 -6.343933 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -7.071068 -7.071068 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -6.343933 -7.730104 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -5.555702 -8.314696 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -4.713967 -8.819213 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -3.826834 -9.238795 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -2.902846 -9.569403 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -1.950903 -9.807853 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -0.980171 -9.951847 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 0.0 -10.0 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 0.980171 -9.951847 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 1.950903 -9.807853 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 2.902846 -9.569403 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 3.826834 -9.238795 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 4.713967 -8.819213 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 5.555702 -8.314696 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 6.343933 -7.730104 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 7.071068 -7.071068 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 7.730104 -6.343933 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 8.314696 -5.555702 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 8.819213 -4.713967 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 9.238795 -3.826834 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 9.569403 -2.902846 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 9.807853 -1.950903 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 9.951847 -0.980171 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 2.5 2.5 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" -2.5 7.5 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 0.0 -5.0 >> INPUT1.TXT
+	@printf "%10.6f %10.6f\n" 5.0 5.0 >> INPUT1.TXT
+	@echo "128" > INPUT2.TXT
+	@for i in $(seq 1 128); do \
+		angle=$(echo "scale=6; 2 * 3.14159 * ($i - 1) / 128" | bc -l); \
+		x=$(echo "scale=6; 12 * c($angle)" | bc -l); \
+		y=$(echo "scale=6; 12 * s($angle)" | bc -l); \
+		printf "%10.6f %10.6f\n" $x $y >> INPUT2.TXT; \
+	done 2>/dev/null || (echo "bc not found, creating simplified INPUT2.TXT"; \
+		for i in $(seq 1 128); do printf "%10.6f %10.6f\n" $i $i >> INPUT2.TXT; done)
+	@echo "✓ Created INPUT1.TXT (64 points) and INPUT2.TXT (128 points)"
+	@echo "For remaining files (INPUT3-INPUT10), use: python3 generate_inputs.py"
+
+# Quick test with first few input files
+quicktest: $(SLOW_EXE) $(FAST_EXE)
+	@echo "=== Quick Test (First 3 test cases) ==="
+	@mkdir -p results
+	@for i in 1 2 3; do \
+		if [ -f "INPUT$i.TXT" ]; then \
+			echo "Testing INPUT$i.TXT..."; \
+			echo -e "INPUT$i.TXT\nresults/OUTPUT$i\_SLOW.TXT" | ./$(SLOW_EXE) | grep "execution time"; \
+			echo -e "INPUT$i.TXT\nresults/OUTPUT$i\_FAST.TXT" | ./$(FAST_EXE) | grep "execution time"; \
+			echo ""; \
+		fi; \
+	done
 
 # Test with empirical timing (if you want to test the timing example)
 .PHONY: test-timing

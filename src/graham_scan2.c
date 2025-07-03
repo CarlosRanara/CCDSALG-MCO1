@@ -109,5 +109,5 @@ void grahamScanFast(Point points[], int n, Point hull[], int *hullSize) {
     /* End the timer and display elapsed time */
     tEnd = clock();
     tElapsed = ((double)(tEnd - tStart)) / CLOCKS_PER_SEC * 1000; /* Convert to milliseconds */
-    printf("Graham's Scan (Merge Sort) execution time: %.2f milliseconds\n", tElapsed);
+    printf("Graham's Scan (Merge Sort) execution time: %.6f milliseconds\n", tElapsed);
 }
