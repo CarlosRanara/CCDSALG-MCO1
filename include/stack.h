@@ -3,8 +3,15 @@
  * Stack data structure implementation for Graham's Scan algorithm
  * Group 16 - CCDSALG Term 3, AY 2024-2025
  * 
- * Programmers: [Your Group Member Names]
- * Code Testers: [Your Group Member Names]
+ * Programmers: 
+ * RANARA, Ramil Carlos
+ * SIA, Justin Michael
+ * TIU, Avram Nathaniel
+ *
+ * Code Testers:
+ * RANARA, Ramil Carlos
+ * SIA, Justin Michael
+ * TIU, Avram Nathaniel
  */
 
 #ifndef STACK_H

@@ -2,10 +2,17 @@
  * stack.c
  * Implementation of the stack data structure for Graham's Scan algorithm
  * Group 16 - CCDSALG Term 3, AY 2024-2025
- * 
- * Programmers: [Your Group Member Names]
- * Code Testers: [Your Group Member Names]
- * 
+ *
+ * Programmers: 
+ * RANARA, Ramil Carlos
+ * SIA, Justin Michael
+ * TIU, Avram Nathaniel
+ *
+ * Code Testers:
+ * RANARA, Ramil Carlos
+ * SIA, Justin Michael
+ * TIU, Avram Nathaniel
+* 
  * This module implements an array-based stack data structure specifically
  * designed for the Graham's Scan convex hull algorithm. The stack can hold
  * up to 32,768 Point elements and includes a special NEXT-TO-TOP operation

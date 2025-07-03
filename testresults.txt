@@ -21,112 +21,112 @@
 [0;34m[INFO][0m === Running Test Case 1 ===
 [0;34m[INFO][0m Input size: 64 points
 [0;34m[INFO][0m Running slow version (Bubble Sort)...
-[0;32m[SUCCESS][0m Slow version completed in 0.051000 ms
+[0;32m[SUCCESS][0m Slow version completed in 0.046000 ms
 [0;34m[INFO][0m Running fast version (Merge Sort)...
 [0;32m[SUCCESS][0m Fast version completed in 0.019000 ms
 [0;34m[INFO][0m Comparing outputs...
 [0;32m[SUCCESS][0m Outputs are identical
 [0;32m[SUCCESS][0m Test case 1 complete
-[0;34m[INFO][0m Speedup: 2.68x faster
+[0;34m[INFO][0m Speedup: 2.42x faster
 
 [0;34m[INFO][0m === Running Test Case 2 ===
 [0;34m[INFO][0m Input size: 128 points
 [0;34m[INFO][0m Running slow version (Bubble Sort)...
-[0;32m[SUCCESS][0m Slow version completed in 0.180000 ms
+[0;32m[SUCCESS][0m Slow version completed in 0.174000 ms
 [0;34m[INFO][0m Running fast version (Merge Sort)...
-[0;32m[SUCCESS][0m Fast version completed in 0.033000 ms
+[0;32m[SUCCESS][0m Fast version completed in 0.038000 ms
 [0;34m[INFO][0m Comparing outputs...
 [0;32m[SUCCESS][0m Outputs are identical
 [0;32m[SUCCESS][0m Test case 2 complete
-[0;34m[INFO][0m Speedup: 5.45x faster
+[0;34m[INFO][0m Speedup: 4.57x faster
 
 [0;34m[INFO][0m === Running Test Case 3 ===
 [0;34m[INFO][0m Input size: 256 points
 [0;34m[INFO][0m Running slow version (Bubble Sort)...
-[0;32m[SUCCESS][0m Slow version completed in 0.627000 ms
+[0;32m[SUCCESS][0m Slow version completed in 0.645000 ms
 [0;34m[INFO][0m Running fast version (Merge Sort)...
-[0;32m[SUCCESS][0m Fast version completed in 0.069000 ms
+[0;32m[SUCCESS][0m Fast version completed in 0.068000 ms
 [0;34m[INFO][0m Comparing outputs...
 [0;32m[SUCCESS][0m Outputs are identical
 [0;32m[SUCCESS][0m Test case 3 complete
-[0;34m[INFO][0m Speedup: 9.08x faster
+[0;34m[INFO][0m Speedup: 9.48x faster
 
 [0;34m[INFO][0m === Running Test Case 4 ===
 [0;34m[INFO][0m Input size: 512 points
 [0;34m[INFO][0m Running slow version (Bubble Sort)...
-[0;32m[SUCCESS][0m Slow version completed in 3.190000 ms
+[0;32m[SUCCESS][0m Slow version completed in 3.194000 ms
 [0;34m[INFO][0m Running fast version (Merge Sort)...
-[0;32m[SUCCESS][0m Fast version completed in 0.196000 ms
+[0;32m[SUCCESS][0m Fast version completed in 0.193000 ms
 [0;34m[INFO][0m Comparing outputs...
 [0;32m[SUCCESS][0m Outputs are identical
 [0;32m[SUCCESS][0m Test case 4 complete
-[0;34m[INFO][0m Speedup: 16.27x faster
+[0;34m[INFO][0m Speedup: 16.54x faster
 
 [0;34m[INFO][0m === Running Test Case 5 ===
 [0;34m[INFO][0m Input size: 1024 points
 [0;34m[INFO][0m Running slow version (Bubble Sort)...
-[0;32m[SUCCESS][0m Slow version completed in 13.719000 ms
+[0;32m[SUCCESS][0m Slow version completed in 13.656000 ms
 [0;34m[INFO][0m Running fast version (Merge Sort)...
-[0;32m[SUCCESS][0m Fast version completed in 0.416000 ms
+[0;32m[SUCCESS][0m Fast version completed in 0.415000 ms
 [0;34m[INFO][0m Comparing outputs...
 [0;32m[SUCCESS][0m Outputs are identical
 [0;32m[SUCCESS][0m Test case 5 complete
-[0;34m[INFO][0m Speedup: 32.97x faster
+[0;34m[INFO][0m Speedup: 32.90x faster
 
 [0;34m[INFO][0m === Running Test Case 6 ===
 [0;34m[INFO][0m Input size: 2048 points
 [0;34m[INFO][0m Running slow version (Bubble Sort)...
-[0;32m[SUCCESS][0m Slow version completed in 54.993000 ms
+[0;32m[SUCCESS][0m Slow version completed in 55.208000 ms
 [0;34m[INFO][0m Running fast version (Merge Sort)...
-[0;32m[SUCCESS][0m Fast version completed in 0.939000 ms
+[0;32m[SUCCESS][0m Fast version completed in 0.918000 ms
 [0;34m[INFO][0m Comparing outputs...
 [0;32m[SUCCESS][0m Outputs are identical
 [0;32m[SUCCESS][0m Test case 6 complete
-[0;34m[INFO][0m Speedup: 58.56x faster
+[0;34m[INFO][0m Speedup: 60.13x faster
 
 [0;34m[INFO][0m === Running Test Case 7 ===
 [0;34m[INFO][0m Input size: 4096 points
 [0;34m[INFO][0m Running slow version (Bubble Sort)...
-[0;32m[SUCCESS][0m Slow version completed in 220.016000 ms
+[0;32m[SUCCESS][0m Slow version completed in 221.290000 ms
 [0;34m[INFO][0m Running fast version (Merge Sort)...
-[0;32m[SUCCESS][0m Fast version completed in 2.006000 ms
+[0;32m[SUCCESS][0m Fast version completed in 1.978000 ms
 [0;34m[INFO][0m Comparing outputs...
 [0;32m[SUCCESS][0m Outputs are identical
 [0;32m[SUCCESS][0m Test case 7 complete
-[0;34m[INFO][0m Speedup: 109.67x faster
+[0;34m[INFO][0m Speedup: 111.87x faster
 
 [0;34m[INFO][0m === Running Test Case 8 ===
 [0;34m[INFO][0m Input size: 8192 points
 [0;34m[INFO][0m Running slow version (Bubble Sort)...
-[0;32m[SUCCESS][0m Slow version completed in 873.933000 ms
+[0;32m[SUCCESS][0m Slow version completed in 877.843000 ms
 [0;34m[INFO][0m Running fast version (Merge Sort)...
-[0;32m[SUCCESS][0m Fast version completed in 4.293000 ms
+[0;32m[SUCCESS][0m Fast version completed in 4.315000 ms
 [0;34m[INFO][0m Comparing outputs...
 [0;32m[SUCCESS][0m Outputs are identical
 [0;32m[SUCCESS][0m Test case 8 complete
-[0;34m[INFO][0m Speedup: 203.57x faster
+[0;34m[INFO][0m Speedup: 203.43x faster
 
 [0;34m[INFO][0m === Running Test Case 9 ===
 [0;34m[INFO][0m Input size: 16384 points
 [0;34m[INFO][0m Running slow version (Bubble Sort)...
-[0;32m[SUCCESS][0m Slow version completed in 3498.046000 ms
+[0;32m[SUCCESS][0m Slow version completed in 3524.564000 ms
 [0;34m[INFO][0m Running fast version (Merge Sort)...
-[0;32m[SUCCESS][0m Fast version completed in 9.320000 ms
+[0;32m[SUCCESS][0m Fast version completed in 9.323000 ms
 [0;34m[INFO][0m Comparing outputs...
 [0;32m[SUCCESS][0m Outputs are identical
 [0;32m[SUCCESS][0m Test case 9 complete
-[0;34m[INFO][0m Speedup: 375.32x faster
+[0;34m[INFO][0m Speedup: 378.05x faster
 
 [0;34m[INFO][0m === Running Test Case 10 ===
 [0;34m[INFO][0m Input size: 32768 points
 [0;34m[INFO][0m Running slow version (Bubble Sort)...
-[0;32m[SUCCESS][0m Slow version completed in 13929.522000 ms
+[0;32m[SUCCESS][0m Slow version completed in 13903.292000 ms
 [0;34m[INFO][0m Running fast version (Merge Sort)...
-[0;32m[SUCCESS][0m Fast version completed in 19.888000 ms
+[0;32m[SUCCESS][0m Fast version completed in 19.844000 ms
 [0;34m[INFO][0m Comparing outputs...
 [0;32m[SUCCESS][0m Outputs are identical
 [0;32m[SUCCESS][0m Test case 10 complete
-[0;34m[INFO][0m Speedup: 700.39x faster
+[0;34m[INFO][0m Speedup: 700.62x faster
 
 ==============================================
 [0;34m[INFO][0m BIG TEST COMPLETE!
@@ -140,16 +140,16 @@
 
 Case Input Size Slow (ms)    Fast (ms)    Speedup 
 ---- ---------- --------     --------     --------
-1    64         0.051000     0.019000     2.68    
-2    128        0.180000     0.033000     5.45    
-3    256        0.627000     0.069000     9.08    
-4    512        3.190000     0.196000     16.27   
-5    1024       13.719000    0.416000     32.97   
-6    2048       54.993000    0.939000     58.56   
-7    4096       220.016000   2.006000     109.67  
-8    8192       873.933000   4.293000     203.57  
-9    16384      3498.046000  9.320000     375.32  
-10   32768      13929.522000 19.888000    700.39  
+1    64         0.046000     0.019000     2.42    
+2    128        0.174000     0.038000     4.57    
+3    256        0.645000     0.068000     9.48    
+4    512        3.194000     0.193000     16.54   
+5    1024       13.656000    0.415000     32.90   
+6    2048       55.208000    0.918000     60.13   
+7    4096       221.290000   1.978000     111.87  
+8    8192       877.843000   4.315000     203.43  
+9    16384      3524.564000  9.323000     378.05  
+10   32768      13903.292000 19.844000    700.62  
 
 Detailed results saved in: results/
 CSV data for documentation: results/performance_summary.csv
