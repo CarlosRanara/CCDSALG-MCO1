@@ -6,9 +6,9 @@ void swap(Point *first, Point *second) {
     *second = temp;
 }
 
-int orientation(Point anchor, Point first, Point second) {
-    double result = (first.x - anchor.x) * (second.y - anchor.y)
-                    - (second.x - anchor.x) * (first.y - anchor.y);
+int orientation(Point first, Point second, Point third) {
+    double result = (second.x - first.x) * (third.y - second.y)
+                    - (second.y - first.y) * (third.x - second.x);
 
     if (result > 0) {
         return -1;

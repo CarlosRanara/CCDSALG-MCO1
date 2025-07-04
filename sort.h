@@ -8,7 +8,7 @@
     */
     void anchorToIndexZero(Point points[], long int currentPoints);
     void bubbleSort(Point points[], long int currentPoints, Point anchor);
-    int orientation(Point anchor, Point first, Point second);
+    int orientation(Point first, Point second, Point third);
     void swap(Point *first, Point *second);
     double distanceSquared(Point first, Point second);
     void mergeSort(Point points[], long int start, long int end);
