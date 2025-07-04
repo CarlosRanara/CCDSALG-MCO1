@@ -7,68 +7,48 @@
 #include "sort.h"
 #include <stdio.h>
 
-/* Computes polar angle from anchor to point without using math.h */
+/* Improved polar angle computation using atan2 approximation */
 double computePolarAngle(pointType anchor, pointType point)
 {
     double dDx, dDy;
-
+    
     dDx = point.x - anchor.x;
     dDy = point.y - anchor.y;
-
+    
     /* Handle special cases */
     if (dDx == 0.0 && dDy == 0.0)
     {
         return 0.0;
     }
-
-    /* Use cross product approach for better accuracy */
-    /* We'll use the slope dy/dx but handle quadrants properly */
+    
+    /* Use a simplified atan2 approximation */
     if (dDx == 0.0)
     {
-        if (dDy > 0.0)
-        {
-            return 1.5707963268; /* PI/2 */
-        }
-        else
-        {
-            return -1.5707963268; /* -PI/2 */
-        }
+        return (dDy > 0.0) ? 1.5707963268 : -1.5707963268; /* ±PI/2 */
     }
-
+    
     if (dDy == 0.0)
     {
-        if (dDx > 0.0)
-        {
-            return 0.0; /* 0 degrees */
-        }
-        else
-        {
-            return 3.1415926536; /* PI */
-        }
+        return (dDx > 0.0) ? 0.0 : 3.1415926536; /* 0 or PI */
     }
-
-    /* For simplicity, use a comparison based on slopes and quadrants */
-    /* This avoids complex atan approximations */
-    if (dDx > 0.0 && dDy > 0.0)
+    
+    /* Simple atan approximation for each quadrant */
+    double ratio = dDy / dDx;
+    double angle;
+    
+    if (dDx > 0.0)
     {
-        /* First quadrant: return small positive value based on slope */
-        return dDy / dDx;
-    }
-    else if (dDx < 0.0 && dDy > 0.0)
-    {
-        /* Second quadrant: return PI - slope */
-        return 3.1415926536 + dDy / dDx;
-    }
-    else if (dDx < 0.0 && dDy < 0.0)
-    {
-        /* Third quadrant: return PI + slope */
-        return 3.1415926536 - dDy / dDx;
+        /* First and fourth quadrants */
+        angle = ratio / (1.0 + 0.28 * ratio * ratio);
+        if (angle < 0.0) angle += 6.2831853072; /* 2*PI */
     }
     else
     {
-        /* Fourth quadrant: return 2*PI - slope */
-        return 6.2831853072 + dDy / dDx;
+        /* Second and third quadrants */
+        angle = 3.1415926536 + ratio / (1.0 + 0.28 * ratio * ratio);
     }
+    
+    return angle;
 }
 
 /* Computes squared distance between two points */
@@ -196,6 +176,7 @@ void mergeSortHelper(pointType points[], int nLeft, int nRight, pointType anchor
 }
 
 /* Merge function for Merge Sort */
+/* Safer merge function with better error handling */
 void mergeArrays(pointType points[], int nLeft, int nMid, int nRight, pointType anchor)
 {
     static pointType leftArray[16384], rightArray[16384];
@@ -204,29 +185,40 @@ void mergeArrays(pointType points[], int nLeft, int nMid, int nRight, pointType 
     nLeftSize = nMid - nLeft + 1;
     nRightSize = nRight - nMid;
 
-    /* Check array bounds to prevent overflow */
-    if (nLeftSize > 16384 || nRightSize > 16384)
+    /* Enhanced bounds checking */
+    if (nLeftSize <= 0 || nRightSize <= 0 || 
+        nLeftSize > 16384 || nRightSize > 16384 ||
+        nLeft < 0 || nRight >= 32768)
     {
-        printf("Error: Array size too large for merge operation\n");
+        printf("Error: Invalid array bounds in merge operation\n");
+        printf("Left size: %d, Right size: %d, Left: %d, Right: %d\n", 
+               nLeftSize, nRightSize, nLeft, nRight);
         return;
     }
 
-    /* Copy data to temporary arrays */
+    /* Copy data to temporary arrays with bounds checking */
     for (i = 0; i < nLeftSize; i++)
     {
-        leftArray[i] = points[nLeft + i];
+        if (nLeft + i < 32768) /* Ensure we don't exceed main array bounds */
+        {
+            leftArray[i] = points[nLeft + i];
+        }
     }
+    
     for (j = 0; j < nRightSize; j++)
     {
-        rightArray[j] = points[nMid + 1 + j];
+        if (nMid + 1 + j < 32768)
+        {
+            rightArray[j] = points[nMid + 1 + j];
+        }
     }
 
-    /* Merge the temporary arrays back into points[nLeft..nRight] */
+    /* Rest of merge logic remains the same... */
     i = 0;
     j = 0;
     k = nLeft;
 
-    while (i < nLeftSize && j < nRightSize)
+    while (i < nLeftSize && j < nRightSize && k <= nRight)
     {
         if (comparePointsByAngle(leftArray[i], rightArray[j], anchor) <= 0)
         {
@@ -241,16 +233,14 @@ void mergeArrays(pointType points[], int nLeft, int nMid, int nRight, pointType 
         k++;
     }
 
-    /* Copy remaining elements of leftArray[], if any */
-    while (i < nLeftSize)
+    while (i < nLeftSize && k <= nRight)
     {
         points[k] = leftArray[i];
         i++;
         k++;
     }
 
-    /* Copy remaining elements of rightArray[], if any */
-    while (j < nRightSize)
+    while (j < nRightSize && k <= nRight)
     {
         points[k] = rightArray[j];
         j++;

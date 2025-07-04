@@ -1,0 +1,4 @@
+Enter the filename and extension of the input text file: Enter the filename and extension of the output text file: Graham Scan (Bubble Sort) execution time: 5777.000 milliseconds
+Convex hull computation completed successfully!
+Number of input points: 32768
+Number of hull points: 30

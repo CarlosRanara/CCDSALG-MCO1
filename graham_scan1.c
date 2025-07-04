@@ -16,14 +16,14 @@ double computeCrossProductLocal(pointType p1, pointType p2, pointType p3)
 }
 
 /* Graham Scan algorithm implementation using slow sorting */
+/* Graham Scan algorithm implementation - complete function without break */
 int grahamScan1(pointType points[], int nSize, pointType result[])
 {
     stackType hull;
-    pointType anchor, p1, p2;
+    pointType anchor;
     int i, nMinIndex, nHullSize;
     clock_t start, end;
     double dElapsedTime;
-    int bKeepChecking = 1;
 
     /* Handle edge cases */
     if (nSize == 0)
@@ -65,7 +65,7 @@ int grahamScan1(pointType points[], int nSize, pointType result[])
     /* Sort remaining points by polar angle using bubble sort */
     bubbleSort(&points[1], nSize - 1, anchor);
 
-    /* Initialize stack and push first point (anchor) */
+    /* Initialize stack and push first two points */
     createStack(&hull);
     pushStack(&hull, points[0]);
     pushStack(&hull, points[1]);
@@ -74,16 +74,10 @@ int grahamScan1(pointType points[], int nSize, pointType result[])
     for (i = 2; i < nSize; i++)
     {
         /* Remove points that make clockwise turn or are collinear */
-        bKeepChecking = 1;
-        while (hull.nTop > 0 && bKeepChecking)
+        while (hull.nTop > 0 && 
+               computeCrossProductLocal(nextToTopStack(&hull), topStack(&hull), points[i]) <= 0.0)
         {
-            p2 = topStack(&hull);
-            p1 = nextToTopStack(&hull);
-            if (computeCrossProductLocal(p1, p2, points[i]) > 0.0)
-            {
-                bKeepChecking = 0; /* Counter-clockwise turn, keep the point */
-            }
-            popStack(&hull); /* Remove point that makes clockwise turn */
+            popStack(&hull);
         }
         pushStack(&hull, points[i]);
     }

@@ -1,0 +1,4 @@
+Enter the filename and extension of the input text file: Enter the filename and extension of the output text file: Graham Scan (Merge Sort) execution time: 6.000 milliseconds
+Convex hull computation completed successfully!
+Number of input points: 16384
+Number of hull points: 30
