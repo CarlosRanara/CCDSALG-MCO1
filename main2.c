@@ -36,6 +36,17 @@ void printHull(Stack *hull, FILE *dest) {
 
 }
 
+void verifyEnoughPoints(long int currentPoints, FILE *dest, Stack *hull, Point *points) {
+    if (currentPoints >= 3) {
+        mergeGraham(hull, points, currentPoints);
+        printHull(hull, dest);
+    }
+
+    else {
+        fprintf(dest, "WARNING: Not enough points to make convex hull");
+    }
+}
+
 int main () {
     FILE *src, *dest;
     Stack hull;
@@ -50,8 +61,7 @@ int main () {
 
     if (src != NULL) {
         readFileContent(src, points, &currentPoints);
-        mergeGraham(&hull, points, currentPoints);
-        printHull(&hull, dest);
+        verifyEnoughPoints(currentPoints, dest, &hull, points);
 
         fflush(src);
         fflush(dest);
