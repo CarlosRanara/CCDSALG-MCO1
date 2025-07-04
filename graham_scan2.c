@@ -28,7 +28,7 @@ void mergeGraham(Stack *hull, Point points[], long int currentPoints) {
 
         start = clock();
         anchorToIndexZero(points, currentPoints);
-        mergeSort(points, 0, currentPoints);
+        mergeSort(points, 1, currentPoints);
 
         initialPush(hull, points);
 
