@@ -1,5 +1,6 @@
 #include "graham_scan.h"
 
+// Typedef for char array for storing the names of input and output files as a string.
 typedef char String20[21];
 
 void askFileNames(String20 inputName, String20 outputName) {
