@@ -82,26 +82,28 @@ def main():
     random.seed(42)
     
     test_cases = [
-        (6, 64),      # 2^6
-        (7, 128),     # 2^7
-        (8, 256),     # 2^8
-        (9, 512),     # 2^9
-        (10, 1024),   # 2^10
-        (11, 2048),   # 2^11
-        (12, 4096),   # 2^12
-        (13, 8192),   # 2^13
-        (14, 16384),  # 2^14
-        (15, 32768)   # 2^15
+        (1, 64),      # 2^6
+        (2, 128),     # 2^7
+        (3, 256),     # 2^8
+        (4, 512),     # 2^9
+        (5, 1024),    # 2^10
+        (6, 2048),    # 2^11
+        (7, 4096),    # 2^12
+        (8, 8192),    # 2^13
+        (9, 16384),   # 2^14
+        (10, 32768)   # 2^15
     ]
     
-    for exponent, n in test_cases:
+    for case_num, n in test_cases:
+        # Convert case_num to the corresponding exponent for filename
+        exponent = case_num + 5  # case_num 1 -> 2^6, case_num 2 -> 2^7, etc.
         filename = f"input2^{exponent}.txt"
         print(f"Generating {filename} with {n} points...")
         
         # Scale the coordinates based on number of points
-        scale = 10 + (exponent * 2)  # Larger scale for larger datasets
+        scale = 10 + (case_num * 2)  # Larger scale for larger datasets
         
-        if exponent <= 8:
+        if case_num <= 3:
             # Smaller test cases - use circular pattern
             points = generate_circular_points(n, scale)
         else:
