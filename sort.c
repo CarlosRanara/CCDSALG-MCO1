@@ -1,11 +1,36 @@
+/**
+ * @file sort.c
+ * @brief Implementation of sorting algorithms and geometric utilities
+ * @author RANARA, Ramil Carlos, SIA, Justin Michael, TIU, Avram Nathaniel - Programmer
+ * @date 7/6/2025 
+ * @version 1.0
+ */
+
 #include "sort.h"
 
+/* Purpose: Exchange the positions of two points in memory
+   Returns: void
+   @param first (Point*): Pointer to first point to swap
+   @param second (Point*): Pointer to second point to swap
+   Pre-condition:
+   - Both pointers must point to valid Point structures
+   Post-condition:
+   - The two points have exchanged positions in memory */
 void swap(Point *first, Point *second) {
     Point temp = *first;
     *first = *second;
     *second = temp;
 }
 
+/* Purpose: Determine the orientation of three ordered points using cross product
+   Returns: -1 if counterclockwise turn, 1 if clockwise turn, 0 if collinear
+   @param first (Point): First point (typically the anchor/reference point)
+   @param second (Point): Second point (forms vector with first point)
+   @param third (Point): Third point (forms vector with second point)
+   Pre-condition:
+   - All three points must have valid coordinates
+   Post-condition:
+   - Returns orientation based on cross product calculation */
 int orientation(Point first, Point second, Point third) {
     double result = (second.x - first.x) * (third.y - second.y)
                     - (second.y - first.y) * (third.x - second.x);
@@ -21,6 +46,14 @@ int orientation(Point first, Point second, Point third) {
     return 0;
 }
 
+/* Purpose: Calculate squared Euclidean distance between two points
+   Returns: Squared distance between the points (double)
+   @param first (Point): First point
+   @param second (Point): Second point
+   Pre-condition:
+   - Both points must have valid coordinates
+   Post-condition:
+   - Returns squared distance to avoid expensive sqrt() computation */
 double distanceSquared(Point first, Point second) {
     double xResult = first.x - second.x;
     double yResult = first.y - second.y;
@@ -28,6 +61,15 @@ double distanceSquared(Point first, Point second) {
     return xResult*xResult + yResult*yResult;
 }
 
+/* Purpose: Find the anchor point and move it to index 0
+   Returns: void
+   @param points (Point[]): Array of points to process
+   @param currentPoints (long int): Number of points in the array
+   Pre-condition:
+   - points array must contain at least 1 valid point
+   - currentPoints must be > 0
+   Post-condition:
+   - The anchor point (bottommost-leftmost) is at index 0 */
 void anchorToIndexZero(Point points[], long int currentPoints) {
     int minIndex = 0;
     for (long int i = 1; i < currentPoints; i++) {
@@ -48,6 +90,17 @@ void anchorToIndexZero(Point points[], long int currentPoints) {
     swap(&points[0], &points[minIndex]);
 }
 
+/* Purpose: Sort points by polar angle relative to anchor using bubble sort
+   Returns: void
+   @param points (Point[]): Array of points to sort (index 0 must be anchor)
+   @param currentPoints (long int): Total number of points in array
+   @param anchor (Point): The reference point for angle calculations
+   Pre-condition:
+   - points[0] must be the anchor point
+   - currentPoints must be >= 1
+   - anchor should be points[0]
+   Post-condition:
+   - Points[1] to points[n-1] are sorted by increasing polar angle from anchor */
 void bubbleSort(Point points[], long int currentPoints, Point anchor) {
 
     for (long int i = 1; i < currentPoints-1; i++) {
@@ -72,6 +125,19 @@ void bubbleSort(Point points[], long int currentPoints, Point anchor) {
     }
 }
 
+/* Purpose: Merge two sorted subarrays by polar angle (helper for merge sort)
+   Returns: void
+   @param points (Point[]): Array containing both subarrays to merge
+   @param start (long int): Starting index of first subarray
+   @param middle (long int): Ending index of first subarray
+   @param end (long int): Ending index of second subarray
+   @param anchor (Point): Reference point for angle calculations
+   Pre-condition:
+   - Both subarrays [start,middle] and [middle+1,end] must be sorted by polar angle
+   - start <= middle < end
+   - All indices must be valid
+   Post-condition:
+   - The range [start, end] is merged and sorted by polar angle from anchor */
 void merger(Point points[], long int start, long int middle, long int end, Point anchor) {
     long int i, j, k;
     long int leftEnd = middle - start + 1;
@@ -133,6 +199,17 @@ void merger(Point points[], long int start, long int middle, long int end, Point
     }
 }
 
+/* Purpose: Sort points by polar angle relative to anchor using merge sort
+   Returns: void
+   @param points (Point[]): Array of points to sort
+   @param start (long int): Starting index for sorting range
+   @param end (long int): Ending index for sorting range
+   Pre-condition:
+   - points[0] must be the anchor point
+   - start <= end
+   - start and end must be valid indices
+   Post-condition:
+   - Points are sorted by increasing polar angle from points[0] (anchor) */
 void mergeSort(Point points[], long int start, long int end) {
     if (start < end) {
         long int mid = start + (end - start) / 2;
