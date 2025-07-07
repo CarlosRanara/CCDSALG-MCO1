@@ -1,105 +1,95 @@
-# Graham's Scan Convex Hull Project
-## CCDSALG/GDDASGO Term 1, AY 2024-2025
+# Graham's Scan Convex Hull Implementation
 
-### Project Overview
-This project implements the Graham's Scan algorithm to compute the convex hull of a set of 2D points. The implementation includes two versions: a "slow" version using Bubble Sort and a "fast" version using Quick Sort to demonstrate the impact of algorithm efficiency on performance.
+A C implementation of Graham's scan algorithm for computing convex hulls, featuring performance comparison between bubble sort and merge sort preprocessing.
 
-### Project Structure
+## Overview
+
+This project implements Graham's scan algorithm with two different sorting approaches to demonstrate the performance impact of sorting efficiency on computational geometry algorithms. The implementation processes 2D point sets and outputs their convex hull vertices.
+
+## Features
+
+- **Dual Implementation:** Bubble sort (O(n²)) vs Merge sort (O(n log n)) preprocessing
+- **Performance Testing:** Automated benchmarking across multiple input sizes (2⁶ to 2¹⁵ points)
+- **Input Generation:** Configurable point pattern generation for testing
+- **Cross-Platform:** Works on Windows, macOS, and Linux
+- **Modular Design:** Clean separation of stack operations, sorting algorithms, and geometric computations
+
+## Project Structure
+
 ```
-Graham's Scan Project/
-│
-├── Source Files
-│   ├── stack.h              # Stack data structure header
-│   ├── stack.c              # Stack data structure implementation
-│   ├── sort.h               # Sorting algorithms header
-│   ├── sort.c               # Sorting algorithms implementation
-│   ├── graham_scan.h        # Graham's Scan algorithm header
-│   ├── graham_scan1.c       # Graham's Scan with Bubble Sort (slow)
-│   ├── graham_scan2.c       # Graham's Scan with Quick Sort (fast)
-│   ├── main1.c              # Driver program for slow version
-│   └── main2.c              # Driver program for fast version
-│
-├── Test Files
-│   ├── INPUT1.TXT           # Test case 1 (2^6 = 64 points)
-│   ├── INPUT2.TXT           # Test case 2 (2^8 = 256 points)
-│   ├── INPUT3.TXT           # Test case 3 (2^10 = 1024 points)
-│   ├── INPUT4.TXT           # Test case 4 (2^12 = 4096 points)
-│   ├── INPUT5.TXT           # Test case 5 (2^15 = 32768 points)
-│   ├── OUTPUT1.TXT          # Output for test case 1
-│   ├── OUTPUT2.TXT          # Output for test case 2
-│   ├── OUTPUT3.TXT          # Output for test case 3
-│   ├── OUTPUT4.TXT          # Output for test case 4
-│   └── OUTPUT5.TXT          # Output for test case 5
-│
-└── Documentation
-    └── GROUPNUMBER.PDF      # Project documentation
+graham-scan/
+├── main1.c              # Driver for bubble sort implementation
+├── main2.c              # Driver for merge sort implementation
+├── graham_scan.h        # Main algorithm interface
+├── graham_scan1.c       # Bubble sort Graham scan
+├── graham_scan2.c       # Merge sort Graham scan
+├── stack.h/.c           # Stack ADT implementation
+├── sort.h/.c            # Sorting algorithms and geometry utilities
+├── Makefile             # Build configuration
+├── generate_inputs.py   # Test data generation script
+├── test_automation.sh   # Unix/Linux testing script
+├── test_automation.bat  # Windows testing script
+├── images/              # Visual documentation
+│   └── all_point_patterns.png  # Point distribution visualizations
+└── data/                # Generated test input files
+    ├── input2^6.txt     # 64 points
+    ├── input2^7.txt     # 128 points
+    └── ...              # Up to input2^15.txt (32,768 points)
 ```
 
-## Compilation Instructions
+## Installation
 
-### Prerequisites
-- GCC compiler with C99 standard support
-- Make sure you have `time.h` library available for timing functions
+### Using Makefile (Recommended)
 
-### Compilation Commands
-
-**Compile Slow Version (Bubble Sort):**
 ```bash
-gcc -Wall -std=c99 stack.c sort.c graham_scan1.c main1.c -o graham_slow -lm
+# Build both implementations
+make all
+
+# Build individual versions
+make main1    # Bubble sort version
+make main2    # Merge sort version
+
+# For Windows
+make windows
 ```
 
-**Compile Fast Version (Quick Sort):**
+### Manual Compilation
+
 ```bash
-gcc -Wall -std=c99 stack.c sort.c graham_scan2.c main2.c -o graham_fast -lm
+# Bubble sort implementation
+gcc -Wall -std=c99 -o main1 main1.c stack.c sort.c graham_scan1.c
+
+# Merge sort implementation
+gcc -Wall -std=c99 -o main2 main2.c stack.c sort.c graham_scan2.c
 ```
 
-### Alternative: Using Makefile
-Create a Makefile with the following content:
-```makefile
-CC = gcc
-CFLAGS = -Wall -std=c99
-LDFLAGS = -lm
+## Usage
 
-all: graham_slow graham_fast
+### Basic Operation
 
-graham_slow: stack.o sort.o graham_scan1.o main1.o
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
-
-graham_fast: stack.o sort.o graham_scan2.o main2.o
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c $<
-
-clean:
-	rm -f *.o graham_slow graham_fast
-```
-
-Then compile with:
 ```bash
-make
+# Interactive mode
+./main1
+# Enter: data/input2^6.txt
+# Enter: output_slow.txt
+
+./main2
+# Enter: data/input2^6.txt
+# Enter: output_fast.txt
 ```
 
-## Running the Programs
+### Automated Testing
 
-### Slow Version
 ```bash
-./graham_slow
+# Generate test inputs
+make generate_inputs
+
+# Run performance tests
+make test
 ```
-
-### Fast Version
-```bash
-./graham_fast
-```
-
-### Input Format
-When prompted, enter:
-1. Input filename (e.g., `INPUT1.TXT`)
-2. Output filename (e.g., `OUTPUT1.TXT`)
-
-## File Formats
 
 ### Input File Format
+
 ```
 n
 x1 y1
@@ -107,11 +97,11 @@ x2 y2
 ...
 xn yn
 ```
-Where:
-- `n` is the number of points
-- Each subsequent line contains x and y coordinates (double precision)
+
+Where `n` is the number of points, followed by n lines of coordinate pairs.
 
 ### Output File Format
+
 ```
 m
 x1 y1
@@ -119,147 +109,109 @@ x2 y2
 ...
 xm ym
 ```
-Where:
-- `m` is the number of points in the convex hull
-- Coordinates are formatted with 6 decimal places
-- Points are listed in counterclockwise order starting with the anchor point
 
-## Implementation Details
+Where `m` is the number of hull vertices, followed by hull points in counterclockwise order.
 
-### Stack Data Structure
-- **Implementation**: Array-based stack
-- **Capacity**: Up to 32,768 elements (2^15)
-- **Operations**: CREATE, PUSH, POP, TOP, NEXT-TO-TOP, ISFULL, ISEMPTY
-- **Special Feature**: NEXT-TO-TOP operation for Graham's Scan algorithm
+## Test Data Patterns
 
-### Sorting Algorithms
-- **Slow Algorithm**: Bubble Sort (O(n²) complexity)
-- **Fast Algorithm**: Quick Sort (O(n log n) complexity)
-- **Sorting Criteria**: Polar angle with respect to anchor point
-- **Tie-breaking**: Distance from anchor point for collinear points
+The project generates diverse point distributions for comprehensive testing:
 
-### Graham's Scan Algorithm
-1. Find anchor point (lowest y-coordinate, leftmost if tie)
-2. Sort remaining points by polar angle around anchor
-3. Process points using stack to maintain counterclockwise turns
-4. Remove points that create clockwise turns
-5. Output convex hull points in counterclockwise order
+![Point Patterns](images/all_point_patterns.png)
 
-## Performance Testing
+- **Circular Patterns** (datasets 2⁶-2⁸): Points distributed on circle perimeter with interior points
+- **Mixed Patterns** (datasets 2⁹-2¹⁵): Complex distributions combining boundary, linear, and random elements
 
-The project includes timing measurements to compare the performance of slow vs. fast versions:
+Each pattern is designed to test different aspects of the convex hull algorithm performance and correctness.
 
-- **Bubble Sort Version**: Expected O(n²) performance
-- **Quick Sort Version**: Expected O(n log n) performance
-- **Test Cases**: 5 different input sizes from 64 to 32,768 points
-- **Timing**: Measured in milliseconds using clock() function
+## Algorithm Details
 
-## Key Features
+### Graham's Scan Steps
 
-✅ **Modular Design**: Separate files for different components  
-✅ **Error Handling**: Comprehensive error checking and reporting  
-✅ **Memory Efficient**: No dynamic memory allocation  
-✅ **Standards Compliant**: Follows C99 standard  
-✅ **Performance Analysis**: Built-in timing for algorithm comparison  
-✅ **Robust Testing**: Handles edge cases and large datasets  
+1. **Anchor Selection:** Find bottommost-leftmost point
+2. **Polar Sorting:** Sort remaining points by polar angle from anchor
+3. **Hull Construction:** Use stack to maintain convex hull vertices
+4. **Orientation Test:** Remove non-convex points using cross product
 
-## Sample Usage
+### Key Functions
 
+- `orientation()`: Determines turn direction using cross product
+- `distanceSquared()`: Handles collinear points by distance
+- `bubbleSort()` / `mergeSort()`: Polar angle sorting implementations
+- Stack operations: `PUSH()`, `POP()`, `TOP()`, `NEXT_TO_TOP()`
+
+## Performance Analysis
+
+The project demonstrates the significant impact of sorting efficiency:
+
+- **Bubble Sort:** O(n²) preprocessing + O(n) hull construction = O(n²)
+- **Merge Sort:** O(n log n) preprocessing + O(n) hull construction = O(n log n)
+
+Test cases range from 64 to 32,768 points, clearly showing the performance divergence as input size grows.
+
+## Makefile Commands
+
+### Build Commands
 ```bash
-# Compile both versions
-gcc -Wall -std=c99 stack.c sort.c graham_scan1.c main1.c -o graham_slow -lm
-gcc -Wall -std=c99 stack.c sort.c graham_scan2.c main2.c -o graham_fast -lm
-
-# Run slow version
-./graham_slow
-Enter input filename (including extension): INPUT1.TXT
-Enter output filename (including extension): OUTPUT1_SLOW.TXT
-Graham's Scan (Bubble Sort) execution time: 1.23 milliseconds
-Convex hull computation complete. Results written to OUTPUT1_SLOW.TXT
-
-# Run fast version
-./graham_fast
-Enter input filename (including extension): INPUT1.TXT
-Enter output filename (including extension): OUTPUT1_FAST.TXT
-Graham's Scan (Quick Sort) execution time: 0.45 milliseconds
-Convex hull computation complete. Results written to OUTPUT1_FAST.TXT
+make all              # Build both implementations
+make main1            # Build bubble sort version
+make main2            # Build merge sort version
+make windows          # Build Windows executables
 ```
 
-## Expected Performance Results
+### Utility Commands
+```bash
+make generate_inputs  # Create test data files
+make test            # Run automated performance tests
+make run             # Show usage examples
+make help            # Display all available commands
+```
 
-For large datasets (32,768 points), expect:
-- **Slow Version**: Several seconds to minutes
-- **Fast Version**: Milliseconds to seconds
-- **Performance Ratio**: Fast version typically 10-100x faster for large inputs
+### Cleanup Commands
+```bash
+make clean           # Remove all generated files
+make clean_executables # Remove only executable files
+make input_clean     # Remove data directory
+make output_clean    # Remove results directory
+```
 
-## Troubleshooting
+## Input Generation
 
-### Common Issues
+The Python script `generate_inputs.py` creates test files with varying point distributions:
 
-1. **Compilation Errors**
-   - Ensure all source files are in the same directory
-   - Check that GCC supports C99 standard
-   - Verify the `-lm` flag is included for math library
+- **Circular patterns** (smaller datasets): Points on circle perimeter with interior points
+- **Mixed patterns** (larger datasets): Combination of boundary, linear, and random points
+- **Scalable coordinates:** Larger coordinate ranges for bigger datasets
 
-2. **Runtime Errors**
-   - Verify input file exists and has correct format
-   - Check file permissions for reading input and writing output
-   - Ensure sufficient memory for large test cases
+Generated files are stored in the `data/` directory and visualized in `images/all_point_patterns.png`.
 
-3. **Performance Issues**
-   - For very large inputs, the slow version may take significant time
-   - Consider testing with smaller datasets first
+## Dependencies
 
-### File Requirements
-- All source files must be present in the same directory
-- Input files must follow the specified format
-- No executable files should be included in submission
+- **Compiler:** GCC with C99 support
+- **Python 3:** For input generation (optional)
+- **Make:** For automated building (optional)
 
-## Academic Integrity
+## Error Handling
 
-This implementation follows the project requirements for original code development. All algorithms are implemented from scratch without copying existing implementations, in compliance with academic honesty policies.
+The implementation includes comprehensive error checking:
+
+- File operation validation
+- Stack boundary checking
+- Insufficient point detection (minimum 3 points required)
+- Memory access protection
 
 ## Git Commit Conventions
 
-This project follows conventional commit types for better version control management:
+This project follows conventional commit types:
 
 | Type | Purpose |
 |------|---------|
-| `feat` | Add a new feature (functions, logic) |
-| `fix` | Fix a bug (incorrect output, logic errors) |
+| `feat` | Add new feature (functions, logic) |
+| `fix` | Fix bugs (incorrect output, logic errors) |
 | `refactor` | Improve code without changing behavior |
-| `perf` | Optimize performance (faster loops, better memory usage) |
-| `style` | Formatting changes (indentation, comments) |
+| `perf` | Optimize performance |
+| `style` | Formatting changes |
 | `test` | Add or update test cases |
 | `build` | Modify Makefile or compilation setup |
-| `docs` | Update README, specs, or comments |
-| `chore` | Non-code maintenance (renaming files, updating .gitignore) |
+| `docs` | Update documentation |
+| `chore` | Non-code maintenance tasks |
 
-### Example Commit Messages:
-```
-feat(stack.h): implement stack data structure with NEXT-TO-TOP operation
-feat(sort.c): implement bubble sort and quick sort algorithms
-feat(graham_scan1.c): implement Graham's Scan with bubble sort
-fix(orientation): correct calculation for collinear points
-refactor(sort.c): optimize quick sort partitioning algorithm
-refactor(stack.h): improve function naming conventions
-perf(graham_scan2.c): optimize memory usage in hull processing
-style(functions): whitespace adjustment and code formatting
-test(INPUT5.TXT): add test case for 32768 points
-build(Makefile): add compilation targets for both versions
-docs(README): create comprehensive project documentation
-chore(.gitignore): add IDE and executable files to gitignore
-```
-
-### Commit Message Format:
-```
-<type>(<scope>): <description>
-
-Example:
-feat(stack): implement NEXT-TO-TOP operation for Graham's Scan
-fix(sort): correct polar angle comparison for collinear points
-```
-
----
-
-**Note**: This project demonstrates the practical impact of algorithm choice on performance, particularly how sorting algorithm efficiency affects the overall performance of computational geometry algorithms like Graham's Scan.

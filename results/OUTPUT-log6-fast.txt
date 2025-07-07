@@ -1,3 +1,0 @@
-Filename of Source File (with .TXT extension): Filename of Destination File (with .TXT extension): Mergesort Graham:
-Input Size:   2048
-Elapsed Time:        2.000000

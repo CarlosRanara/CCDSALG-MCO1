@@ -1,3 +1,0 @@
-Filename of Source File (with .TXT extension): Filename of Destination File (with .TXT extension): Bubble Graham:
-Input Size:     64
-Elapsed Time:        0.000000

@@ -7,6 +7,7 @@ CCDSALG Term 3, AY 2024-2025
 
 import math
 import random
+import os
 
 def generate_circular_points(n, radius, center_x=0, center_y=0):
     """Generate points on a circle with some interior points"""
@@ -69,9 +70,9 @@ def generate_mixed_pattern(n, scale):
     
     return points[:n]  # Ensure exactly n points
 
-def write_input_file(filename, points):
+def write_input_file(filepath, points):
     """Write points to input file in required format"""
-    with open(filename, 'w') as f:
+    with open(filepath, 'w') as f:
         f.write(f"{len(points)}\n")
         for x, y in points:
             f.write(f"{x:10.6f} {y:10.6f}\n")
@@ -80,6 +81,14 @@ def main():
     """Generate all input files"""
     # Set random seed for reproducible results
     random.seed(42)
+    
+    # Create data directory if it doesn't exist
+    data_dir = "data"
+    if not os.path.exists(data_dir):
+        os.makedirs(data_dir)
+        print(f"Created directory: {data_dir}/")
+    else:
+        print(f"Directory {data_dir}/ already exists")
     
     test_cases = [
         (1, 64),      # 2^6
@@ -98,7 +107,8 @@ def main():
         # Convert case_num to the corresponding exponent for filename
         exponent = case_num + 5  # case_num 1 -> 2^6, case_num 2 -> 2^7, etc.
         filename = f"input2^{exponent}.txt"
-        print(f"Generating {filename} with {n} points...")
+        filepath = os.path.join(data_dir, filename)
+        print(f"Generating {filepath} with {n} points...")
         
         # Scale the coordinates based on number of points
         scale = 10 + (case_num * 2)  # Larger scale for larger datasets
@@ -110,10 +120,10 @@ def main():
             # Larger test cases - use mixed pattern
             points = generate_mixed_pattern(n, scale)
         
-        write_input_file(filename, points)
-        print(f"✓ {filename} created with {len(points)} points")
+        write_input_file(filepath, points)
+        print(f"✓ {filepath} created with {len(points)} points")
     
-    print("\nAll input files generated successfully!")
+    print(f"\nAll input files generated successfully in {data_dir}/ directory!")
     print("\nTest your programs with:")
     print("./graham_slow")
     print("./graham_fast")
